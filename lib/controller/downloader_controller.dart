@@ -53,9 +53,10 @@ class DownloaderController extends GetxController {
           .getManifest(ytdURLController.text.trim());
       final videoFile = streamInfo.muxed.withHighestBitrate();
 
-      final dir = await _getExternalStoragePath();
+      /*final dir = await _getExternalStoragePath();*/
+      final dir = await p.getApplicationDocumentsDirectory();
       final filePath =
-          path.join(dir![0].path, '${video.title}.${videoFile.container.name}');
+          path.join(/*dir![0].path*/dir.path, '${video.title}.${videoFile.container.name}');
 
       final file = File(filePath);
       if (file.existsSync()) {
