@@ -26,7 +26,6 @@ class _DownloadYoutubeVideoScreenState
     if (controller.formKey.currentState!.validate()) {
       controller.formKey.currentState?.save();
       checkStoragePermission();
-     /* controller.downloadVideo(context);*/
     } else {
       setState(() {
         controller.autoValidate = AutovalidateMode.onUserInteraction;
@@ -55,7 +54,6 @@ class _DownloadYoutubeVideoScreenState
       }
     }
   }
-
 
 
   @override
