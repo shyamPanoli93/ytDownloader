@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:ytdownloader/pages/savedyt_downloaded_screen.dart';
+import 'package:ytdownloader/pages/saved_yt_screen.dart';
 import 'package:ytdownloader/pages/ytdownloadScreen.dart';
 
 final Map<String, WidgetBuilder> routes = {

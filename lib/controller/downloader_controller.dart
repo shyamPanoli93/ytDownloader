@@ -79,13 +79,21 @@ class DownloaderController extends GetxController {
       }
       ytdURLController.text = "";
       FocusManager.instance.primaryFocus?.unfocus();
-      await videoDatabase.addVideos(videoDetails);
       await fileStream.flush();
       await fileStream.close();
 
-      pd.close();
-      ScaffoldMessenger.of(context).showSnackBar(snackBarWhenSuccess('Video downloaded successfully'));
-      Navigator.of(context).pushNamed(Routes.savedVideoScreen);
+
+      if(file.existsSync()){
+        await videoDatabase.addVideos(videoDetails);
+        pd.close();
+        ScaffoldMessenger.of(context).showSnackBar(snackBarWhenSuccess('Video downloaded successfully'));
+        Navigator.of(context).pushNamed(Routes.savedVideoScreen);
+      }else{
+        ScaffoldMessenger.of(context).showSnackBar(snackBarWhenFail("File not saved properly"));
+        Navigator.of(context).pushNamed(Routes.downloaderScreen);
+        //throw FileSystemException("File not saved properly");
+      }
+
     } catch (e) {
       print(e);
       pd.close();

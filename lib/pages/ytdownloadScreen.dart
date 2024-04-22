@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:ytdownloader/controller/downloader_controller.dart';
 
 import '../assets.dart';
@@ -23,13 +24,37 @@ class _DownloadYoutubeVideoScreenState
   onClick() {
     if (controller.formKey.currentState!.validate()) {
       controller.formKey.currentState?.save();
-      controller.downloadVideo(context);
+      checkStoragePermission();
+     /* controller.downloadVideo(context);*/
     } else {
       setState(() {
         controller.autoValidate = AutovalidateMode.onUserInteraction;
       });
     }
   }
+
+  Future<void> checkStoragePermission() async {
+    // Check if the storage permission is granted
+    var status = await Permission.storage.status;
+
+    if (status.isGranted) {
+      // Storage permission is already granted, proceed with your logic
+      controller.downloadVideo(context);
+    } else {
+      // Storage permission is not granted, request permission
+      var result = await Permission.storage.request();
+
+      if (result.isGranted) {
+        // Permission granted, proceed with your logic
+        controller.downloadVideo(context);
+      } else {
+        // Permission denied, show a message or handle accordingly
+        print('Storage permission denied');
+        // You can show a snackbar, dialog, or other UI to inform the user
+      }
+    }
+  }
+
 
 
   @override

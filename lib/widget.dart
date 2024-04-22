@@ -40,3 +40,19 @@ SnackBar snackBarWhenSuccess(String message) {
     backgroundColor: Colors.black,
   );
 }
+
+SnackBar snackBarWhenFail(String message) {
+  return SnackBar(
+    content: Row(
+      children: [
+        const Icon(
+          Iconsax.close_circle1,
+          color: Colors.red,
+        ),
+        const SizedBox(width: 5),
+        Text(message),
+      ],
+    ),
+    backgroundColor: Colors.black,
+  );
+}
